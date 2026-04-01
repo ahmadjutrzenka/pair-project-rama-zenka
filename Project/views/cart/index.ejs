@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart — Hellstivate</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+  <%- include('../partials/navbar') %>
+
+  <div class="container py-5">
+    <h2 class="fw-bold mb-4">🛒 Keranjang Belanja</h2>
+
+    <% if (carts.length == 0) { %>
+      <div class="text-center py-5">
+        <p class="text-muted fs-5">Keranjang kamu masih kosong 😔</p>
+        <a href="/products" class="btn btn-dark">Mulai Belanja</a>
+      </div>
+    <% } else { %>
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-0">
+          <table class="table table-hover mb-0 align-middle">
+            <thead class="table-dark">
+              <tr>
+                <th class="ps-4">Produk</th>
+                <th>Kategori</th>
+                <th>Harga</th>
+                <th>Qty</th>
+                <th>Subtotal</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% var total = 0 %>
+              <% carts.forEach(function(cart) { %>
+                <% var subtotal = cart.Product.price * cart.quantity %>
+                <% total = total + subtotal %>
+                <tr>
+                  <td class="ps-4">
+                    <div class="d-flex align-items-center gap-3">
+                      <img src="<%= cart.Product.imgUrl || 'https://placehold.co/60x60?text=?' %>"
+                        width="60" height="60" class="rounded" style="object-fit:cover;">
+                      <div>
+                        <p class="fw-semibold mb-0"><%= cart.Product.name %></p>
+                        <% if (cart.Product.isBestSeller()) { %>
+                          <small class="text-warning">🔥 Terlaris</small>
+                        <% } %>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <% if (cart.Product.Category) { %>
+                      <span class="badge bg-dark"><%= cart.Product.Category.name %></span>
+                    <% } %>
+                  </td>
+                  <td><%= cart.Product.formatPrice() %></td>
+                  <td><%= cart.quantity %></td>
+                  <td class="fw-semibold">
+                    <%= new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(subtotal) %>
+                  </td>
+                  <td>
+                    <form action="/cart/<%= cart.id %>/delete" method="POST">
+                      <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Hapus dari keranjang?')">Hapus</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+            <tfoot class="table-light">
+              <tr>
+                <td colspan="4" class="text-end fw-bold ps-4">Total:</td>
+                <td class="fw-bold fs-5">
+                  <%= new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(total) %>
+                </td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <div class="text-end mt-4">
+        <a href="/products" class="btn btn-outline-dark me-2">← Lanjut Belanja</a>
+        <button class="btn btn-dark px-5" onclick="alert('Checkout coming soon!')">Checkout</button>
+      </div>
+    <% } %>
+  </div>
+
+  <%- include('../partials/footer') %>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
