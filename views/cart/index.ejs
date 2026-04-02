@@ -24,6 +24,7 @@
             <thead class="table-dark">
               <tr>
                 <th class="ps-4">Produk</th>
+                <th>Ukuran</th>
                 <th>Kategori</th>
                 <th>Harga</th>
                 <th>Qty</th>
@@ -48,6 +49,9 @@
                         <% } %>
                       </div>
                     </div>
+                  </td>
+                  <td>
+                    <small class="text-muted"><%= cart.Product.size %></small>
                   </td>
                   <td>
                     <% if (cart.Product.Category) { %>

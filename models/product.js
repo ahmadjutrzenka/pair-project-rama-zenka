@@ -110,9 +110,7 @@ module.exports = (sequelize, DataTypes) => {
 
             for (let word of forbiddenWords) {
               if (lowerCaseName.includes(word)) {
-                throw new Error(
-                  `Toko ini hanya menjual barang Original!`,
-                );
+                throw new Error(`Toko ini hanya menjual barang Original!`);
               }
             }
           },
@@ -127,6 +125,18 @@ module.exports = (sequelize, DataTypes) => {
           min: {
             args: [1000],
             msg: "Harga minimal Rp 1.000",
+          },
+        },
+      },
+      size: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: { msg: "Ukuran wajib diisi" },
+          notEmpty: { msg: "Ukuran wajib diisi" },
+          min: {
+            args: [20],
+            msg: "Ukuran sepatu tidak valid",
           },
         },
       },

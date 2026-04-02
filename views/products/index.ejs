@@ -75,7 +75,7 @@
                 <% } %>
                 <h6 class="card-title fw-bold"><%= product.name %></h6>
                 <p class="fw-semibold mb-1"><%= product.formatPrice() %></p>
-                <p class="text-muted small mb-0">Stok: <%= product.stock %> | Terjual: <%= product.sold %></p>
+                <p class="text-muted small mb-0">Stok: <%= product.stock %> | Terjual: <%= product.sold %> | Size: <%= product.size %></p>
               </div>
               <div class="card-footer bg-white border-0 d-flex gap-2">
                 <a href="/products/<%= product.id %>" class="btn btn-outline-dark btn-sm w-100">Detail</a>

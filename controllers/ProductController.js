@@ -61,6 +61,7 @@ class ProductController {
       var name = req.body.name;
       var description = req.body.description;
       var price = req.body.price;
+      var size = req.body.size;
       var stock = req.body.stock;
       var imgUrl = req.body.imgUrl;
       var categoryId = req.body.categoryId;
@@ -70,6 +71,7 @@ class ProductController {
         name: name,
         description: description,
         price: price,
+        size: size,
         stock: stock,
         sold: 0,
         imgUrl: imgUrl,
@@ -122,6 +124,7 @@ class ProductController {
         name: req.body.name,
         description: req.body.description,
         price: req.body.price,
+        size: req.body.size,
         stock: req.body.stock,
         imgUrl: req.body.imgUrl,
         categoryId: req.body.categoryId,

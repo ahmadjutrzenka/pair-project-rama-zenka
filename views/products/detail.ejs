@@ -26,6 +26,7 @@
         <h4 class="fw-semibold mb-3"><%= product.formatPrice() %></h4>
         <p class="text-muted"><%= product.description %></p>
         <p class="mb-1"><strong>Stok:</strong> <%= product.stock %></p>
+        <p class="mb-2"><strong>Ukuran:</strong> EU <%= product.size %></p>
         <p class="mb-1"><strong>Terjual:</strong> <%= product.sold %> pasang</p>
         <p class="mb-4"><strong>Seller:</strong> <%= product.User ? product.User.username : '-' %></p>
 

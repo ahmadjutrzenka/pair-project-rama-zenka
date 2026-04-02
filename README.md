@@ -116,13 +116,13 @@ Users ─── Carts ─── Products  (Many to Many via Carts)
 
 ### Tabel
 
-| Tabel      | Kolom Utama                                                                                            |
-| ---------- | ------------------------------------------------------------------------------------------------------ |
-| Users      | id (PK), username, email, password, role, createdAt, updatedAt                                         |
-| Profiles   | id (PK), address, phoneNumber, avatarUrl, userId (FK), createdAt, updatedAt                            |
-| Categories | id (PK), name, createdAt, updatedAt                                                                    |
-| Products   | id (PK), name, description, price, stock, imageUrl, userId (FK), categoryId (FK), createdAt, updatedAt |
-| Carts      | id (PK), quantity, userId (FK), productId (FK), createdAt, updatedAt                                   |
+| Tabel      | Kolom Utama                                                                                                  |
+| ---------- | ------------------------------------------------------------------------------------------------------------ |
+| Users      | id (PK), username, email, password, role, createdAt, updatedAt                                               |
+| Profiles   | id (PK), address, phoneNumber, avatarUrl, userId (FK), createdAt, updatedAt                                  |
+| Categories | id (PK), name, createdAt, updatedAt                                                                          |
+| Products   | id (PK), name, description, price, size, stock, imageUrl, userId (FK), categoryId (FK), createdAt, updatedAt |
+| Carts      | id (PK), quantity, userId (FK), productId (FK), createdAt, updatedAt                                         |
 
 ---
 
