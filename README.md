@@ -159,7 +159,6 @@ Users ─── Carts ─── Products  (Many to Many via Carts)
 | Middleware         | ✅     | `isLoggedIn`, `isSeller`                                                                  |
 | Migration tambahan | ✅     | `20260401000006-add-size-to-products.js`                                                  |
 | Seeder             | ✅     | Categories, Users, Products                                                               |
-| MVP feature        | ❌     | Belum diimplementasi — butuh package di luar materi (contoh: moment, qrcode, dll)        |
 
 ---
 
