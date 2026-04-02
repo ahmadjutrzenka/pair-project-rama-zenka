@@ -13,7 +13,7 @@ class AuthController {
 
       var user = await User.findOne({ where: { email: email } });
       if (!user) {
-        return res.render("auth/login", { error: "Email tidak ditemukan" });
+        return res.render("auth/login", { error: "Email tidak ditemukan" }); //mending redirect
       }
 
       var isMatch = bcrypt.compareSync(password, user.password);
