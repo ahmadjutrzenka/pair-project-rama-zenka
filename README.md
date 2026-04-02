@@ -21,8 +21,8 @@ Project Pair Phase 1 Hacktiv8 — Full Stack Web App menggunakan Node.js, Expres
 pair-project-rama-zenka/
 ├── config/         → konfigurasi database
 ├── controllers/    → logic handler setiap route
-├── helpers/        → fungsi bantu (formatRupiah, dll)
-├── middlewares/    → isLoggedIn, isSeller, errorHandler
+├── helpers/        → fungsi bantu (formatRupiah, formatDate)
+├── middlewares/    → isLoggedIn, isSeller
 ├── migrations/     → file migration database
 ├── models/         → definisi model + asosiasi Sequelize
 ├── routes/         → definisi semua route
@@ -85,6 +85,8 @@ npx sequelize-cli db:seed:all
 ### 7. Jalankan server
 
 ```bash
+npx nodemon app.js
+# atau
 node app.js
 ```
 
@@ -116,13 +118,13 @@ Users ─── Carts ─── Products  (Many to Many via Carts)
 
 ### Tabel
 
-| Tabel      | Kolom Utama                                                                                                  |
-| ---------- | ------------------------------------------------------------------------------------------------------------ |
-| Users      | id (PK), username, email, password, role, createdAt, updatedAt                                               |
-| Profiles   | id (PK), address, phoneNumber, avatarUrl, userId (FK), createdAt, updatedAt                                  |
-| Categories | id (PK), name, createdAt, updatedAt                                                                          |
-| Products   | id (PK), name, description, price, size, stock, imageUrl, userId (FK), categoryId (FK), createdAt, updatedAt |
-| Carts      | id (PK), quantity, userId (FK), productId (FK), createdAt, updatedAt                                         |
+| Tabel      | Kolom Utama                                                                                                              |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Users      | id (PK), username, email, password, role, createdAt, updatedAt                                                           |
+| Profiles   | id (PK), address, phoneNumber, avatarUrl, userId (FK), createdAt, updatedAt                                              |
+| Categories | id (PK), name, createdAt, updatedAt                                                                                      |
+| Products   | id (PK), name, description, price, size, stock, sold, imgUrl, userId (FK), categoryId (FK), createdAt, updatedAt        |
+| Carts      | id (PK), quantity, userId (FK), productId (FK), createdAt, updatedAt                                                    |
 
 ---
 
@@ -132,31 +134,32 @@ Users ─── Carts ─── Products  (Many to Many via Carts)
 - Role: Buyer & Seller
 - Seller: Add, Edit, Delete produk
 - Buyer: Browse produk, Add to Cart, Remove from Cart
-- Search produk by nama
-- Sort produk by harga (low-high / high-low)
+- Search produk by nama (`Op.iLike`)
+- Sort produk by harga (low-high / high-low) dan Terlaris (by sold)
+- Bestseller badge 🔥 jika `sold >= 15`
 - Profile page (view & edit)
-- Eager loading: Cart menampilkan data Product + Category
+- Eager loading: Cart → Product → Category
 
 ---
 
 ## 📋 Requirement Checklist
 
-| Requirement        | Status | Implementasi                                                         |
-| ------------------ | ------ | -------------------------------------------------------------------- |
-| 3 jenis asosiasi   | ✅     | 1:1, 1:M, M:M                                                        |
-| Static method      | ✅     | `Product.getAll()`, `Product.getById()`                              |
-| Instance method    | ✅     | `product.formatPrice()`                                              |
-| Validasi Sequelize | ✅     | notNull, isEmail, isIn, len, min, isUrl, Custom Validation (Anti-KW) |
-| CRUD               | ✅     | Products & Cart                                                      |
-| Hooks              | ✅     | `beforeCreate` hash password                                         |
-| Helper             | ✅     | `formatRupiah()`, `formatDate()`                                     |
-| Promise chaining   | ✅     | CartController.postAddToCart                                         |
-| Eager loading      | ✅     | Cart + Product + Category, User + Profile                            |
-| Search & Sort      | ✅     | `Op.iLike`, order ASC/DESC                                           |
-| Login system       | ✅     | bcryptjs + express-session                                           |
-| Middleware         | ✅     | isLoggedIn, isSeller                                                 |
-| Migration tambahan | ✅     | add-size-to-products                                                 |
-| Seeder             | ✅     | Categories, Users, Products                                          |
+| Requirement        | Status | Implementasi                                                                              |
+| ------------------ | ------ | ----------------------------------------------------------------------------------------- |
+| 3 jenis asosiasi   | ✅     | 1:1 (User-Profile), 1:M (User-Products, Category-Products), M:M (User-Product via Cart)  |
+| Static method      | ✅     | `Product.getAll()`, `Product.getById()`                                                   |
+| Instance method    | ✅     | `product.formatPrice()`, `product.isBestSeller()`                                         |
+| Validasi Sequelize | ✅     | notNull, notEmpty, isEmail, isIn, len, min, isUrl, Custom: `antiBarangPalsu`, `notNegative` |
+| CRUD               | ✅     | Products (Seller) & Cart (Buyer)                                                          |
+| Hooks              | ✅     | `beforeCreate` — hash password di User model                                              |
+| Helper             | ✅     | `formatRupiah()`, `formatDate()`                                                          |
+| Promise chaining   | ✅     | `CartController.postAddToCart` — sequential async: findByPk → findOne → create/update     |
+| Eager loading      | ✅     | Cart + Product + Category, User + Profile                                                 |
+| Login system       | ✅     | bcryptjs + express-session                                                                |
+| Middleware         | ✅     | `isLoggedIn`, `isSeller`                                                                  |
+| Migration tambahan | ✅     | `20260401000006-add-size-to-products.js`                                                  |
+| Seeder             | ✅     | Categories, Users, Products                                                               |
+| MVP feature        | ❌     | Belum diimplementasi — butuh package di luar materi (contoh: moment, qrcode, dll)        |
 
 ---
 
