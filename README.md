@@ -155,7 +155,7 @@ Users ─── Carts ─── Products  (Many to Many via Carts)
 | Search & Sort      | ✅     | `Op.iLike`, order ASC/DESC                                           |
 | Login system       | ✅     | bcryptjs + express-session                                           |
 | Middleware         | ✅     | isLoggedIn, isSeller                                                 |
-| Migration tambahan | ✅     | add-imageurl-to-products                                             |
+| Migration tambahan | ✅     | add-size-to-products                                                 |
 | Seeder             | ✅     | Categories, Users, Products                                          |
 
 ---
